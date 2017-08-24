@@ -1,4 +1,12 @@
-# To start run OSCAR
+---
+author: John L. Pollock
+---
+
+# The OSCAR Project
+
+Official website: [http://johnpollock.us/ftp/OSCAR-web-page/oscar.html]
+
+## To start run OSCAR
 - In terminal open a clisp session
 - Then run the following command :
 `(load "\/Users\/stephenokennedy\/Development\/tcd\/nds\/thesis\/pollock_oscar\/Oscar-loader.lisp")`
