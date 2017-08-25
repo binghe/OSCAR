@@ -3,7 +3,7 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (when (null (find-package "OSCAR"))
     (make-package "OSCAR"
-                  :use '("COMMON-LISP-USER" "CCL" "COMMON-LISP"))))
+                  :use '("COMMON-LISP-USER" #+MCL "CCL" "COMMON-LISP"))))
 
 (in-package "OSCAR")
 
