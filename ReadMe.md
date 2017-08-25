@@ -20,6 +20,8 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 - Run the following command :
 `(asdf:load-system :oscar)`
 
+NOTE: if you're also using MCL, before calling ASDF please change the value of `oscar-pathname` at the end of `package.lisp` to your absolute path of OSCAR home pathname, in Mac OS 9 classic format.
+
 ## To run OSCAR's graphics interface on MCL
 - Change current Lisp package to OSCAR: `(in-package :oscar)` or `(in-package "OSCAR")`
 - Run `(initialize-graphics)`
