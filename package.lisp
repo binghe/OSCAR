@@ -1,6 +1,9 @@
 ;; OSCAR-loader
 
-(defpackage OSCAR (:use :common-lisp #+MCL :ccl))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (when (null (find-package "OSCAR"))
+    (make-package "OSCAR"
+                  :use '("COMMON-LISP-USER" "CCL" "COMMON-LISP"))))
 
 (in-package "OSCAR")
 
@@ -100,4 +103,6 @@
 (defvar *graph-log* nil)
 (defvar *graphics-pause* nil)
 
-(defvar oscar-pathname (make-pathname :name :wild :type :wild :defaults *load-pathname*))
+;; This variable is now for MCL only
+(defvar oscar-pathname
+  #+MCL #p"Macintosh HD:Users:binghe:Lisp:OSCAR-Lisp:")
