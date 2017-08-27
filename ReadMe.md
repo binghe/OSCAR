@@ -11,8 +11,8 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 - Macintosh Common Lisp 4.2 (on PPC/Mac OS X)
 
 ## Common Lisp platforms confirmed working
-- Rosetta Macintosh Common Lisp (RMCL) 6.0 (on Intel/Mac OS X 10.6)
-- LispWorks 7.0 (all platforms)
+- Macintosh Common Lisp (RMCL) 5.1, 6.0
+- LispWorks 6.1, 7.0
 
 ## To load OSCAR (using ASDF)
 - Add OSCAR's directory into ASDF's *central-registry*
