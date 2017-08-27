@@ -11,8 +11,11 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 - Macintosh Common Lisp 4.2 (on PPC/Mac OS X)
 
 ## Common Lisp platforms confirmed working
-- Macintosh Common Lisp (RMCL) 5.1, 6.0
+- Macintosh Common Lisp (RMCL) 5.2, 6.0
 - LispWorks 6.1, 7.0
+- CMU Common Lisp 21b
+- SBCL 1.3.19
+- Clozure CL 1.11
 
 ## To load OSCAR (using ASDF)
 - Add OSCAR's directory into ASDF's *central-registry*
