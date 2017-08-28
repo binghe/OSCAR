@@ -4,7 +4,7 @@
     :name "The OSCAR Project"
     :author "John L. Pollock"
     :maintainer "Chun Tian (binghe)"
-    :version "4.0"
+    :version "4.1"
     :description "The general-purpose defeasible reasoner and architecture for a rational agent"
     :depends-on ()
     :serial t
