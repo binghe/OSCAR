@@ -2951,83 +2951,84 @@ except i, j, k. |#
     (terpri) (terpri)
     (princ "                                                                                ") (princ (mem1 *test-log*))
     (when *comparison-log*
-         (princ "                        ") (princ (mem1 *comparison-log*))
-         (princ "                   ratio of run times"))
+      (princ "                        ") (princ (mem1 *comparison-log*))
+      (princ "                   ratio of run times"))
     (terpri)
     (princ "          *reductio-discount*:                                 ") (princ (mem2 *test-log*))
     (when *comparison-log*
-         (princ "                                      ") (princ (mem2 *comparison-log*)))
+      (princ "                                      ") (princ (mem2 *comparison-log*)))
     (terpri)
     (princ "          *reductio-interest*:                                   ") (princ (mem3 *test-log*))
     (when *comparison-log*
-         (princ "                                    ") (princ (mem3 *comparison-log*)))
+      (princ "                                    ") (princ (mem3 *comparison-log*)))
     (terpri)
     (princ "          *skolem-multiplier*:                                   ") (princ (mem4 *test-log*))
     (when *comparison-log*
-         (princ "                                    ") (princ (mem4 *comparison-log*)))
+      (princ "                                    ") (princ (mem4 *comparison-log*)))
     (terpri)
-   (princ "          *quantifier-discount*:                                   ") (princ (mem5 *test-log*))
-   (when (and *comparison-log* (numberp (mem5 *comparison-log*)))
-       (princ "                                    ") (princ (mem5 *comparison-log*)))
-   (terpri) (terpri)
+    (princ "          *quantifier-discount*:                                   ") (princ (mem5 *test-log*))
+    (when (and *comparison-log* (numberp (mem5 *comparison-log*)))
+      (princ "                                    ") (princ (mem5 *comparison-log*)))
+    (terpri) (terpri)
     (let ((ratios nil))
-       (dolist (L (reverse (mem6 *test-log*)))
-           (let* ((n (mem1 L))
-                     (L* (assoc
-                             n (if (numberp (mem5 *comparison-log*))
-                                  (mem6 *comparison-log*) (mem5 *comparison-log*)) :test 'equal)))
-              (princ "#") (princ n) (princ "                                                                          ")
-              (display-run-time-in-seconds (mem2 L))
-              (when L* (princ "                            ") (display-run-time-in-seconds (mem2 L*))
-                           (cond ((and (not (zerop (mem2 L))) (not (zerop (mem2 L*))))
-                                        (let ((ratio (/ (mem2 L) (mem2 L*))))
-                                           (push ratio ratios)
-                                           (princ "                            ")
-                                           (princ
+      (dolist (L (reverse (mem6 *test-log*)))
+	(let* ((n (mem1 L))
+	       (L* (assoc
+		    n (if (numberp (mem5 *comparison-log*))
+			  (mem6 *comparison-log*) (mem5 *comparison-log*)) :test 'equal)))
+	  (princ "#") (princ n)
+	  (princ "                                                                          ")
+	  (display-run-time-in-seconds (mem2 L))
+	  (when L* (princ "                            ") (display-run-time-in-seconds (mem2 L*))
+	    (cond ((and (not (zerop (mem2 L))) (not (zerop (mem2 L*))))
+		   (let ((ratio (/ (mem2 L) (mem2 L*))))
+		     (push ratio ratios)
+		     (princ "                            ")
+		     (princ
                                             ; (if (< (abs (- (mem2 L) (mem2 L*))) 5) 1.0
                                             ;      (float (/ (truncate (* 100 ratio)) 100)))
-                                             (float (/ (truncate (* 1000 ratio)) 1000))
-                                             )))
+		      (float (/ (truncate (* 1000 ratio)) 1000))
+		      )))
                                        ; (let ((ratio
                                        ;           (if (< (abs (- (mem2 L) (mem2 L*))) 15) 1.0
                                        ;                (/ (mem2 L) (mem2 L*)))))
                                        ;    (push ratio ratios)
                                        ;    (princ "                            ")
                                        ;    (princ (float (/ (truncate (* 100 ratio)) 100)))))
-                                       (t (princ "                            ##"))))
-              (terpri)
-              (princ "           cumulative  argument length:                 ") (princ (mem3 L))
-              (when L* (princ "                                           ") (princ (mem3 L*))
-                           (cond ((and (not (zerop (mem3 L))) (not (zerop (mem3 L*))))
-                                        (princ "                                      ")
-                                        (let ((d (- (mem3 L) (mem3 L*))))
-                                           (cond ((> d 0) (princ "+") (princ d))
-                                                       ((< d 0) (princ d))
-                                                       (t (princ "  --")))))
-                                       (t (princ "                            --"))))
-              (terpri)
-              (princ "           total number of inferences:                     ") (princ (mem4 L))
-              (when L* (princ "                                          ") (princ (mem4 L*))
-                           (cond ((and (not (zerop (mem4 L))) (not (zerop (mem4 L*))))
-                                        (princ "                                      ")
-                                        (let ((d (- (mem4 L) (mem4 L*))))
-                                           (cond ((> d 0) (princ "+") (princ d))
-                                                       ((< d 0) (princ d))
-                                                       (t (princ "  --")))))
-                                       (t (princ "                            --"))))
-              (terpri) (terpri))
-           (terpri))
+		  (t (princ "                            ##"))))
+	  (terpri)
+	  (princ "           cumulative argument length:                 ") (princ (mem3 L))
+	  (when L* (princ "                                           ") (princ (mem3 L*))
+	    (cond ((and (not (zerop (mem3 L))) (not (zerop (mem3 L*))))
+		   (princ "                                      ")
+		   (let ((d (- (mem3 L) (mem3 L*))))
+		     (cond ((> d 0) (princ "+") (princ d))
+			   ((< d 0) (princ d))
+			   (t (princ "  --")))))
+		  (t (princ "                            --"))))
+	  (terpri)
+	  (princ "           total number of inferences:                     ") (princ (mem4 L))
+	  (when L* (princ "                                          ") (princ (mem4 L*))
+	    (cond ((and (not (zerop (mem4 L))) (not (zerop (mem4 L*))))
+		   (princ "                                      ")
+		   (let ((d (- (mem4 L) (mem4 L*))))
+		     (cond ((> d 0) (princ "+") (princ d))
+			   ((< d 0) (princ d))
+			   (t (princ "  --")))))
+		  (t (princ "                            --"))))
+	  (terpri) (terpri))
+	(terpri))
       ; (when ratios
       ;      (princ "                                                                               average ratio of run times = ")
       ;      (let ((average (/ (apply '+ ratios) (length ratios))))
       ;         (princ (float (/ (truncate (* 10000 average)) 10000))))
       ;      (terpri))
       (when ratios
-           (princ "geometric average ratio of run times = ")
-           (setf ratios (remove 0 ratios))
-           (let ((average (expt (apply '* ratios) (/ 1 (length ratios)))))
-             (princ (float (/ (truncate (* 10000 average)) 10000))))
-           (terpri))))
+	(princ "geometric average ratio of run times = ")
+	(setf ratios (remove 0 ratios))
+	(let ((average (expt (apply '* ratios) (/ 1 (length ratios)))))
+	  (princ (float (/ (truncate (* 10000 average)) 10000))))
+	(terpri))))
 
 (defunction rerun (&rest args)
     (progn
@@ -8658,14 +8659,14 @@ changed, so is its old-undefeated-degree-of-support. |#
                   (triangle-sets tree))))
 
 (defunction display-belief-changes  (links new-beliefs new-retractions)
-    ; (when (member (support-link 12) links) (setf l links nb new-beliefs nr new-retractions) (break))
-    ;; (step (display-belief-changes l  nb nr))
+    #| (when (member (support-link 12) links) (setf l links nb new-beliefs nr new-retractions) (break))
+       (step (display-belief-changes l  nb nr)) |#
     (when *monitor-assignment-tree*
          (monitor-assignment-tree links)
          (loop
            (when (read-char-no-hang) (return))))
-   ; (when (and (not (complete-tree *assignment-tree*)) (null *deductive-only*))
-   ;      (princ link) (terpri) (break))
+    #| (when (and (not (complete-tree *assignment-tree*)) (null *deductive-only*))
+	 (princ link) (terpri) (break)) |#
     (when (or *display?* *log-on*)
          (cond
            ((and (not *deductive-only*) (or new-beliefs new-retractions))
@@ -8797,9 +8798,10 @@ where new-beliefs is the list of nodes whose undefeated-degrees-of-support have 
 as a result of the computation and new-retractions is the list of nodes whose
 undefeated-degrees-of-support have decreased as a result of this computation. |#
 
-(defunction compute-undefeated-degrees-of-support () ; (break)
-    ; (when (member (support-link 2) *new-links*) (break))
-    ;; (step (compute-undefeated-degrees-of-support))
+(defunction compute-undefeated-degrees-of-support ()
+    #| (break)
+       (when (member (support-link 2) *new-links*) (break))
+       (step (compute-undefeated-degrees-of-support)) |#
     (let* ((immediately-altered-nodes
                 (remove-duplicates (mapcar #'support-link-target *altered-links*)))
               (altered-nodes (inference-descendants immediately-altered-nodes))
@@ -8906,7 +8908,7 @@ undefeated-degrees-of-support have decreased as a result of this computation. |#
           (when (null interests)
                (return (order descendants #'(lambda (x y) (< (interest-number x) (interest-number y))))))))))
 
-; The nodes inferred by discharging the interest-descendants of interest.
+#| The nodes inferred by discharging the interest-descendants of interest. |#
 (defunction node-descendants-of-interest (interest)
     (let ((interests (interest-descendants (list interest))))
       (order
@@ -8982,6 +8984,7 @@ undefeated-degrees-of-support have decreased as a result of this computation. |#
                               (* L-udos (support-link-discount-factor L)))
                      (recompute-descendant-udoss target))))))
 
+#|
 ;(defunction tree-degree (node assignment-tree)
 ;    (or (zeroed-value (assoc node (node-assignment assignment-tree)))
 ;          (minimum
@@ -8996,6 +8999,7 @@ undefeated-degrees-of-support have decreased as a result of this computation. |#
 ;
 ;(defunction zeroed-value (assoc)
 ;    (if assoc (or (cdr assoc) 0)))
+|#
 
 #| This computes defeat-statuses for interest-links and interests, and returns the list
 of all interests whose defeat-statuses change as a result of the computation.  |#
@@ -9063,9 +9067,9 @@ the sequent concluded. |#
                 (when S (draw-conclusion S nil :Q&I nil 1 0 nil nil))))))
 
 (defunction discharge-ultimate-epistemic-interests (new-beliefs new-retractions)
-    ;(when (eql *cycle* 19) (setf nb new-beliefs nr new-retractions) (break))
-   ; (setf nb new-beliefs nr new-retractions)
-    ;; (step (discharge-ultimate-epistemic-interests nb nr))
+   #| (when (eql *cycle* 19) (setf nb new-beliefs nr new-retractions) (break))
+      (setf nb new-beliefs nr new-retractions)
+      (step (discharge-ultimate-epistemic-interests nb nr)) |#
    (let ((altered-queries nil))
      (dolist (C new-beliefs)
          (when (answered-queries C)

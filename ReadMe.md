@@ -30,10 +30,9 @@ NOTE: if you're also using MCL, before calling ASDF please change the value of `
 - Run `(initialize-graphics)`
 
 ## How to run tests
-- Manually load 3 more Lisp files (in same order as below) without compilation:
+- Manually load 2 more Lisp files (in same order as below) without compilation:
  1. Run `(load "Rules_3-30.lisp")`,
  2. Run `(load "Combined-problems.lisp")`,
- 3. Run `(load "Agent-arguments5.lisp")`
 - Change current Lisp package to OSCAR: `(in-package :oscar)` or `(in-package "OSCAR")`
 - Run `(test n)` or just `(test)`
 

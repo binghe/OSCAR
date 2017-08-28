@@ -136,17 +136,17 @@
 its arglist and definition on the property list of the function name.  When
 definitions are changed, a record of the changes is kept in *old-definitions*. 
 (defmacro defunction (fun arg &rest body)
-    `(progn
-         (when (and (get (quote ,fun) 'definition)
-                               (not (equal (get (quote ,fun) 'definition) (quote ,body))))
-              (push (cons (quote ,fun)
-                                     (list (append (list 'defun (quote ,fun) (get (quote ,fun) 'arglist))
-                                                             (get (quote ,fun) 'definition))
-                                             (multiple-value-list (get-decoded-time))))
-                          *old-definitions*))
-         (setf (get (quote ,fun) 'arglist) (quote ,arg))
-         (setf (get (quote ,fun) 'definition) (quote ,body))
-         (defun ,fun ,arg ,@body)))
+  `(progn
+     (when (and (get (quote ,fun) 'definition)
+		(not (equal (get (quote ,fun) 'definition) (quote ,body))))
+       (push (cons (quote ,fun)
+		   (list (append (list 'defun (quote ,fun) (get (quote ,fun) 'arglist))
+				 (get (quote ,fun) 'definition))
+			 (multiple-value-list (get-decoded-time))))
+	     *old-definitions*))
+     (setf (get (quote ,fun) 'arglist) (quote ,arg))
+     (setf (get (quote ,fun) 'definition) (quote ,body))
+     (defun ,fun ,arg ,@body)))
 |#
 
 #| This defines a function in the ordinary way, but also keeps a record of
@@ -156,69 +156,71 @@ Definitions created by defunction are saved in the file "Definitions History"
 in the OSCAR Folder. The first time a function is defined in a session, the
 definition is not saved in "Definitions History".|#
 (defmacro defunction (fun arg &rest body)
-    `(progn
-         (defun ,fun ,arg ,@body)
-         (when (and (get (quote ,fun) 'definition)
-                               (not (equal (get (quote ,fun) 'definition) (quote ,body))))
-              (let ((def (append (list 'defun (quote ,fun) (get (quote ,fun) 'arglist))
-                                                             (get (quote ,fun) 'definition))))
-                 (push (cons (quote ,fun)
-                                        (list def (multiple-value-list (get-decoded-time))))
-                             *old-definitions*)
-                 #+MCL ; enabled for MCL only
-                 (with-open-file
-                      (stream (make-pathname :name "Definitions History" :type "lisp"
-                                             :defaults oscar-pathname)
-                              :direction :output :if-exists :append)
-                      (terpri stream) (princ "==============================================" stream)
-                      (terpri stream)
-                      (multiple-value-bind
-                           (seconds minutes hour day month year)
-                           (get-decoded-time)
-                           (princ "Definition overwritten " stream) (princ month stream) (princ "/" stream)
-                           (princ day stream) (princ "/" stream) (princ year stream)
-                           (princ "     " stream) (princ hour stream) (princ ":" stream)
-                           (princ minutes stream) (princ ":" stream) (princ seconds stream) (terpri stream))
-                      (princ "--------------------------------------------------------------------------------" stream) (terpri stream)
-                      (print-pretty def stream) (terpri stream)
-                      )))
-         (setf (get (quote ,fun) 'arglist) (quote ,arg))
-         (setf (get (quote ,fun) 'definition) (quote ,body))
-         (quote ,fun)))
+  `(progn
+     (defun ,fun ,arg ,@body)
+     (when (and (get (quote ,fun) 'definition)
+		(not (equal (get (quote ,fun) 'definition) (quote ,body))))
+       (let ((def (append (list 'defun (quote ,fun) (get (quote ,fun) 'arglist))
+			  (get (quote ,fun) 'definition))))
+	 (push (cons (quote ,fun)
+		     (list def (multiple-value-list (get-decoded-time))))
+	       *old-definitions*)
+	 #+MCL ; enabled for MCL only
+	 (with-open-file
+	     (stream (make-pathname :name "Definitions History" :type "lisp"
+				    :defaults oscar-pathname)
+		     :direction :output :if-exists :append)
+	   (terpri stream) (princ "==============================================" stream)
+	   (terpri stream)
+	   (multiple-value-bind
+	       (seconds minutes hour day month year)
+	       (get-decoded-time)
+	     (princ "Definition overwritten " stream) (princ month stream) (princ "/" stream)
+	     (princ day stream) (princ "/" stream) (princ year stream)
+	     (princ "     " stream) (princ hour stream) (princ ":" stream)
+	     (princ minutes stream) (princ ":" stream) (princ seconds stream) (terpri stream))
+	   (princ "--------------------------------------------------------------------------------" stream)
+	   (terpri stream)
+	   (print-pretty def stream) (terpri stream)
+	   )))
+     (setf (get (quote ,fun) 'arglist) (quote ,arg))
+     (setf (get (quote ,fun) 'definition) (quote ,body))
+     (quote ,fun)))
 
 #| This returns and displays the definition history of fun. |#
 (defun def-history (fun &optional do-not-print)
-    (let ((definitions nil))
-       (dolist (d *old-definitions*)
-           (when (equal (car d) fun) (push (cdr d) definitions)))
-       (setf definitions (reverse definitions))
-       (when (null do-not-print)
-            (princ "-----------------------------------------") (terpri)
-            (princ "Definition history for ") (princ fun)
-            (princ " (most recent definitions first):") (terpri) (terpri)
-            (dolist (d definitions)
-                (let ((time (mem2 d)))
-                   (cond (time
-                                (princ "Definition overwritten at ")
-                                (princ (mem5 time)) (princ "/") (princ (mem4 time)) (princ "/")
-                                (princ (mem6 time)) (princ "    ") (princ (mem3 time))
-                                (princ ":") (if (< (mem2 time) 10) (princ "0")) (princ (mem2 time))
-                                (princ ":") (if (< (mem2 time) 10) (princ "0")) (princ (mem1 time))
-                                (terpri) (print-pretty (mem1 d)) (terpri) (terpri))
-                               (t (print-pretty d) (terpri) (terpri)))))
-            (terpri))))
+  (let ((definitions nil))
+    (dolist (d *old-definitions*)
+      (when (equal (car d) fun) (push (cdr d) definitions)))
+    (setf definitions (reverse definitions))
+    (when (null do-not-print)
+      (princ "-----------------------------------------") (terpri)
+      (princ "Definition history for ") (princ fun)
+      (princ " (most recent definitions first):") (terpri) (terpri)
+      (dolist (d definitions)
+	(let ((time (mem2 d)))
+	  (cond (time
+		 (princ "Definition overwritten at ")
+		 (princ (mem5 time)) (princ "/") (princ (mem4 time)) (princ "/")
+		 (princ (mem6 time)) (princ "    ") (princ (mem3 time))
+		 (princ ":") (if (< (mem2 time) 10) (princ "0")) (princ (mem2 time))
+		 (princ ":") (if (< (mem2 time) 10) (princ "0")) (princ (mem1 time))
+		 (terpri) (print-pretty (mem1 d)) (terpri) (terpri))
+		(t
+		 (print-pretty d) (terpri) (terpri)))))
+      (terpri))))
       ; definitions))
 
 (defun decode-time (time)
-    (multiple-value-bind
-         (second minute hour) (decode-universal-time time)
-         (list hour minute second)))
+  (multiple-value-bind (second minute hour)
+      (decode-universal-time time)
+    (list hour minute second)))
 
 (defun print-pretty (x &optional stream)
-    (let ((pp *print-pretty*))
-       (setf *print-pretty* t)
-       (prin1 x stream)
-       (setf *print-pretty* pp)))
+  (let ((pp *print-pretty*))
+    (setf *print-pretty* t)
+    (prin1 x stream)
+    (setf *print-pretty* pp)))
 
 #| This returns and displays a list of functions whose definitions have changed. |#
 (defun changed-defs (&optional do-not-print-changes)
@@ -1186,24 +1188,24 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
 
 
 (defun definition (fun)
-    (let ((def (get fun 'definition)))
-       (if def (append (list 'defun fun (get fun 'arglist)) def)
+  (let ((def (get fun 'definition)))
+    (if def (append (list 'defun fun (get fun 'arglist)) def)
             "No definition is recorded")))
 
 (defun turn-on-metering (fun)
-    (let ((arglist (arglist fun))
-            (definition (cdddr (definition fun))))
-      (cond ((equal arglist "No arglist is recorded") arglist)
-                ((equal definition "No definition is recorded") definition)
-                (t (when (unboundp '*metered-calls*) (setq *metered-calls* nil))
-                    (when (assoc fun *metered-calls*)
-                         (princ fun) (princ " already has a metering record.") (terpri))
-                    (setf definition
-                             (cons 'progn 
-                                       (if (equal (mem1 (mem1 definition)) 'declare)
-                                         (cdr definition)
-                                         definition)))
-                    (eval (list 'defun fun arglist (list 'metered-call (list 'quote fun) definition)))))))
+  (let ((arglist (get fun 'arglist))
+	(definition (cdddr (definition fun))))
+    (cond ((equal arglist "No arglist is recorded") arglist)
+	  ((equal definition "No definition is recorded") definition)
+	  (t (when (unboundp '*metered-calls*) (setq *metered-calls* nil))
+	     (when (assoc fun *metered-calls*)
+	       (princ fun) (princ " already has a metering record.") (terpri))
+	     (setf definition
+		   (cons 'progn 
+			 (if (equal (mem1 (mem1 definition)) 'declare)
+			     (cdr definition)
+			   definition)))
+	     (eval (list 'defun fun arglist (list 'metered-call (list 'quote fun) definition)))))))
 
 (defun meter (&rest funs)
    (cond ((null funs)
@@ -1221,9 +1223,9 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
 (defun meter-all ()
    (princ "Turning on metering for these functions:") (terpri)
    (for-all (package-symbols)
-                #'(lambda (f)
-                     (cond ((not (equal (arglist f) "No arglist is recorded"))
-                                (princ f) (terpri) (turn-on-metering f)))))
+	    #'(lambda (f)
+		(cond ((not (equal (get f 'arglist) "No arglist is recorded"))
+		       (princ f) (terpri) (turn-on-metering f)))))
    nil)
 
 (defun unmeter (&rest funs)
@@ -1347,24 +1349,24 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
 
 ;List all callers of f in current package:
 (defun who-calls (f)
-     (terpri) (princ "The following functions call ") (princ f) (princ ":") (terpri)
-     (let* ((callers 
-              (remove nil
-                         (mapcar 
-                    #'(lambda (x)
-                    (cond ((occur f (if (not (stringp (definition x))) (cddr (definition x))))
-                          (list x (get-source-files x)))))
-                    (package-symbols))))
-            (files (remove-duplicates (unionmapcar #'cadr callers))))
-      (for-all files
-                 #'(lambda (f)
+  (terpri) (princ "The following functions call ") (princ f) (princ ":") (terpri)
+  (let* ((callers 
+	  (remove nil
+		  (mapcar 
+		   #'(lambda (x)
+		       (cond ((occur f (if (not (stringp (definition x))) (cddr (definition x))))
+			      (list x (get-source-files x)))))
+		   (package-symbols))))
+	 (files (remove-duplicates (unionmapcar #'cadr callers))))
+    (for-all files
+	     #'(lambda (f)
                  (princ "Defined in ") (prin1 f) (princ ":") (terpri)
                  (for-all callers
                           #'(lambda (x)
-                        (cond ((mem f (mem2 x))
-                             (princ "     ") (prin1 (mem1 x))
-                             (terpri))))))))
-     (terpri))
+			      (cond ((mem f (mem2 x))
+				     (princ "     ") (prin1 (mem1 x))
+				     (terpri))))))))
+  (terpri))
 
 (defunction show-callers (f &optional (max-depth 5))
     (callers f nil 0 nil max-depth))

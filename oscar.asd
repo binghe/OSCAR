@@ -11,11 +11,12 @@
     :components ((:file "package")
 		 (:file "OSCAR-TOOLS")
 		 (:file "Syntax_3")
+		 (:file "Agent-arguments5")
 		 (:file "base")
 		 (:file "Assignment-trees_3-26")
 		 (:file "OSCAR_3-31")
-                 #+MCL
-                 (:file "oscar-graphics17")
+		 #+MCL
+		 (:file "oscar-graphics17")
 		 (:file "Reason-macros_3-31")
 		 (:file "Prob-compiler_3-24")
 		 ))
