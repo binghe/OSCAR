@@ -1,9 +1,8 @@
 ;; OSCAR-loader
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (when (null (find-package "OSCAR"))
-    (make-package "OSCAR"
-                  :use '("COMMON-LISP-USER" #+MCL "CCL" "COMMON-LISP"))))
+  (unless (find-package "OSCAR")
+    (make-package "OSCAR" :use '("COMMON-LISP"))))
 
 (in-package "OSCAR")
 
