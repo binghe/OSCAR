@@ -19,4 +19,5 @@
 		 (:file "oscar-graphics17")
 		 (:file "Reason-macros_3-31")
 		 (:file "Prob-compiler_3-24")
+		 (:file "Rules_3-30")
 		 ))
