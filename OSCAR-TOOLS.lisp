@@ -1574,5 +1574,4 @@ provided fun is defined by 'defunction'. |#
    (if (null pkg) (setq pkg *package*))
    (for-all (package-symbols pkg) #'unintern) nil)
 
-
-(defvar *tools-loaded* t)
+(setq *tools-loaded* t)
