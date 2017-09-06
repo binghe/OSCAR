@@ -148,6 +148,9 @@ definitions are changed, a record of the changes is kept in *old-definitions*. |
      (setf (get (quote ,fun) 'definition) (quote ,body))
      (defun ,fun ,arg ,@body)))
 
+#+lispworks
+(dspec:define-form-parser (defunction (:alias defun)))
+
 #| This defines a function in the ordinary way, but also keeps a record of
 its arglist and definition on the property list of the function name.  When
 definitions are changed, a record of the changes is kept in *old-definitions*.
