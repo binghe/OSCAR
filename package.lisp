@@ -104,5 +104,5 @@
 (defvar *graphics-pause* nil)
 
 ;; This variable is now for MCL only
-(defvar oscar-pathname
-  #+MCL #p"Macintosh HD:Users:binghe:Lisp:OSCAR-Lisp:")
+; (defvar oscar-pathname
+;  #+MCL #p"Macintosh HD:Users:binghe:Lisp:OSCAR-Lisp:")
