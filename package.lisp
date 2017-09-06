@@ -103,6 +103,13 @@
 (defvar *graph-log* nil)
 (defvar *graphics-pause* nil)
 
-;; This variable is now for MCL only
-; (defvar oscar-pathname
-;  #+MCL #p"Macintosh HD:Users:binghe:Lisp:OSCAR-Lisp:")
+;; by James Anderson (the author of cl-xml)
+(defun |universal-comment-reader| (stream char)
+  (declare (ignore char))
+  (loop (case (read-char stream nil nil)
+          ((#\return #\linefeed nil) (return))
+          (t )))
+  (values))
+
+#-abcl ; the abcl reader does not do (values) correctly
+(set-macro-character #\; '|universal-comment-reader|)
