@@ -9806,3 +9806,5 @@ by terms containing those same variables. |#
                     (not (some #'(lambda (v) (occur v (e-assoc v u1))) vars1)))
                (or (eq u2 t)
                      (not (some #'(lambda (v) (occur v (e-assoc v u2))) vars2))))))
+
+(defvar *comparison-log* nil)
