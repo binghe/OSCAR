@@ -126,7 +126,8 @@
           `(("**;*.*.NEWEST" ,home)
 	    ("**;*.*" ,home)))))
 
-(defun load-oscar-files ()
+;; these files cannot be compiled currently
+(defun load-other-files ()
   ;; Basic rules and problems
   (load #p"OSCAR:rules.lisp")
   (load #p"OSCAR:combined-problems.lisp")
@@ -136,8 +137,10 @@
   ;; Planning rules and problems
   (load #p"OSCAR:non-linear-planner.lisp")
   (load #p"OSCAR:planning-problems.lisp")
-  (load #p"OSCAR:prob-flat-tire.lisp")
   ;; Deontic rules and problems
   (load #p"OSCAR:deontic-rules.lisp")
   (load #p"OSCAR:deontic-problems.lisp")
+  ;(load #p"OSCAR:prob-flat-tire.lisp")
   )
+
+(export 'load-other-files)
