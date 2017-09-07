@@ -1211,17 +1211,18 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
 
 (defun meter (&rest funs)
    (cond ((null funs)
-              (cond ((or (unboundp '*metered-calls*) 
-                               (null *metered-calls*))
-                         (princ "No functions are being metered") (terpri))
-                        (t (terpri) (princ "The following functions are being metered:")
-                           (for-all *metered-calls* #'(lambda (x) (print (car x))))
-                           (terpri) (terpri))
-                        (for-all funs #'(lambda (f) (turn-on-metering f)))))
-             (t (for-all funs #'turn-on-metering)
-                (setq *metered-calls* (sort *metered-calls* 'lessp)))))
+	  (cond ((or (unboundp '*metered-calls*) 
+		     (null *metered-calls*))
+		 (princ "No functions are being metered") (terpri))
+		(t
+		 (terpri) (princ "The following functions are being metered:")
+		 (for-all *metered-calls* #'(lambda (x) (print (car x))))
+		 (terpri) (terpri))))
+	 (t
+	  (for-all funs #'turn-on-metering)
+	  (setq *metered-calls* (sort *metered-calls* 'lessp)))))
 
-;This meters all functions defined by 'defunction' in the current package:
+;; This meters all functions defined by 'defunction' in the current package:
 (defun meter-all ()
    (princ "Turning on metering for these functions:") (terpri)
    (for-all (package-symbols)
