@@ -6,18 +6,18 @@
     :name "The OSCAR Project"
     :author "John L. Pollock"
     :maintainer "Chun Tian (binghe)"
-    :version "4.1"
+    :version "4.2"
     :description "The general-purpose defeasible reasoner and architecture for a rational agent"
     :depends-on ()
     :serial t
     :components ((:file "package")
-		 (:file "OSCAR-TOOLS")
-		 (:file "Syntax_3")
-		 (:file "Agent-arguments5")
+		 (:file "tools")
+		 (:file "syntax")
+		 (:file "agent-arguments")
 		 (:file "base")
-		 (:file "Assignment-trees_3-26")
-		 (:file "OSCAR_3-31")
-		 (:file "Reason-macros_3-31")
-		 (:file "Prob-compiler_3-24")
+		 (:file "assignment-trees")
+		 (:file "oscar-core")
+		 (:file "reason-macros")
+		 (:file "prob-compiler")
 		 #+MCL
-		 (:file "oscar-graphics17")))
+		 (:file "mcl-graphics")))
