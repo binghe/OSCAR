@@ -7,66 +7,40 @@
 ;;;          (Sec 17.4 of `Legal Reasoning: A Cognitive Approach to the Law', by Giovanni Sartor)
 
 (def-forwards-reason FON1
-    :conclusions "(Obl ~A)"
-    :forwards-premises "(Forb A)"
-    :variables A)
+    :forwards-premises "(Forb A)" :conclusions "(Obl ~A)" :variables A)
 
 (def-backwards-reason i-FON1
-    :conclusions "(Obl ~A)"
-    :backwards-premises "(Forb A)"
-    :variables A)
+    :backwards-premises "(Forb A)" :conclusions "(Obl ~A)" :variables A)
 
 (def-forwards-reason FON2
-    :conclusions "(Forb A)"
-    :forwards-premises "(Obl ~A)"
-    :variables A)
+    :forwards-premises "(Obl ~A)" :conclusions "(Forb A)" :variables A)
 
 (def-backwards-reason i-FON2
-    :conclusions "(Forb A)"
-    :backwards-premises "(Obl ~A)"
-    :variables A)
+    :backwards-premises "(Obl ~A)" :conclusions "(Forb A)" :variables A)
 
 (def-forwards-reason OP
-    :conclusions "(Perm A)"
-    :forwards-premises "(Obl A)"
-    :variables A)
+    :forwards-premises "(Obl A)" :conclusions "(Perm A)" :variables A)
 
 (def-backwards-reason i-OP
-    :conclusions "(Perm A)"
-    :backwards-premises "(Obl A)"
-    :variables A)
+    :backwards-premises "(Obl A)" :conclusions "(Perm A)" :variables A)
 
 (def-forwards-reason PNF1
-    :conclusions "~(Perm A)"
-    :forwards-premises "(Forb A)"
-    :variables A)
+    :forwards-premises "(Forb A)" :conclusions "~(Perm A)"  :variables A)
 
 (def-backwards-reason i-PNF1
-    :conclusions "~(Perm A)"
-    :backwards-premises "(Forb A)"
-    :variables A)
+    :backwards-premises "(Forb A)" :conclusions "~(Perm A)" :variables A)
 
 (def-forwards-reason PNF2
-    :conclusions "(Forb A)"
-    :forwards-premises "~(Perm A)"
-    :variables A)
+    :forwards-premises "~(Perm A)" :conclusions "(Forb A)" :variables A)
 
 (def-backwards-reason i-PNF2
-    :conclusions "(Forb A)"
-    :backwards-premises "~(Perm A)"
-    :variables A)
+    :backwards-premises "~(Perm A)" :conclusions "(Forb A)" :variables A)
 
 (def-forwards-reason JO
-    :conclusions "(Obl A & B)"
-    :forwards-premises "(Obl A)" "(Obl B)"
-    :variables A B
-    :defeasible? t)
+    :forwards-premises "(Obl A)" "(Obl B)" :conclusions "(Obl A & B)" :variables A B :defeasible? t)
 
 (def-backwards-reason i-JO
-    :conclusions "(Obl A & B)"
-    :backwards-premises "(Obl A)" "(Obl B)"
-    :variables A B
-    :defeasible? t)
+    :backwards-premises "(Obl A)" "(Obl B)" :conclusions "(Obl A & B)" :variables A B :defeasible? t)
 
 (unless (member FON1 *forwards-logical-reasons*)
   (setq *forwards-logical-reasons*
@@ -81,28 +55,16 @@
 ;;; The support of Facultativeness
 
 (def-forwards-reason FP1
-    :conclusions "(Perm A) & (Perm ~A)"
-    :forwards-premises
-        "(Fault A)"
-    :variables A)
+    :forwards-premises "(Fault A)" :conclusions "(Perm A) & (Perm ~A)" :variables A)
 
 (def-backwards-reason i-FP1
-    :conclusions "(Perm A) & (Perm ~A)"
-    :backwards-premises
-        "(Fault A)"
-    :variables A)
+    :backwards-premises "(Fault A)" :conclusions "(Perm A) & (Perm ~A)" :variables A)
 
 (def-forwards-reason FP2
-    :conclusions "(Fault A)"
-    :forwards-premises
-        "(Perm A) & (Perm ~A)"
-    :variables A)
+    :forwards-premises "(Perm A)" "(Perm ~A)" :conclusions "(Fault A)" :variables A)
 
 (def-backwards-reason i-FP2
-    :conclusions "(Fault A)"
-    :backwards-premises
-        "(Perm A) & (Perm ~A)"
-    :variables A)
+    :backwards-premises "(Perm A)" "(Perm ~A)" :conclusions "(Fault A)" :variables A)
 
 (unless (member FP1 *forwards-logical-reasons*)
   (setq *forwards-logical-reasons*
