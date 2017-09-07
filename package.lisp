@@ -110,5 +110,4 @@
           (t )))
   (values))
 
-#-abcl ; the abcl reader does not do (values) correctly
 (set-macro-character #\; '|universal-comment-reader|)
