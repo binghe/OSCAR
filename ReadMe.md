@@ -31,9 +31,9 @@ NOTE: if you're also using MCL, before calling ASDF please change the value of `
 
 ## How to run tests
 - Manually load 2 more Lisp files (in same order as below) without compilation:
- 1. Run `(load "Rules2.lisp")`,
- 2. Run `(load "Combined-problems.lisp")`,
-- Change current Lisp package to OSCAR: `(in-package :oscar)` or `(in-package "OSCAR")`
+ 1. Run `(load "rules2.lisp")`,
+ 2. Run `(load "Combined-problems.lisp")` or `(load "legal-reasoning.lisp")`,
+- Change current Lisp package to OSCAR
 - Run `(test n)` (`n` is the problem number) or just `(test)`
 
 ## How to run simulations (untested)
