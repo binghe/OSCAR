@@ -8,85 +8,77 @@
 
 (def-forwards-reason FON1
     :conclusions "(Obl ~A)"
-    :forwards-premises
-        "(Forb A)"
+    :forwards-premises "(Forb A)"
     :variables A)
 
 (def-backwards-reason i-FON1
     :conclusions "(Obl ~A)"
-    :backwards-premises
-        "(Forb A)"
+    :backwards-premises "(Forb A)"
     :variables A)
 
 (def-forwards-reason FON2
     :conclusions "(Forb A)"
-    :forwards-premises
-        "(Obl ~A)"
+    :forwards-premises "(Obl ~A)"
     :variables A)
 
 (def-backwards-reason i-FON2
     :conclusions "(Forb A)"
-    :backwards-premises
-        "(Obl ~A)"
+    :backwards-premises "(Obl ~A)"
     :variables A)
 
 (def-forwards-reason OP
     :conclusions "(Perm A)"
-    :forwards-premises
-        "(Obl A)"
+    :forwards-premises "(Obl A)"
     :variables A)
 
 (def-backwards-reason i-OP
     :conclusions "(Perm A)"
-    :backwards-premises
-        "(Obl A)"
+    :backwards-premises "(Obl A)"
     :variables A)
 
 (def-forwards-reason PNF1
     :conclusions "~(Perm A)"
-    :forwards-premises
-        "(Forb A)"
+    :forwards-premises "(Forb A)"
     :variables A)
 
 (def-backwards-reason i-PNF1
     :conclusions "~(Perm A)"
-    :backwards-premises
-        "(Forb A)"
+    :backwards-premises "(Forb A)"
     :variables A)
 
 (def-forwards-reason PNF2
     :conclusions "(Forb A)"
-    :forwards-premises
-        "~(Perm A)"
+    :forwards-premises "~(Perm A)"
     :variables A)
 
 (def-backwards-reason i-PNF2
     :conclusions "(Forb A)"
-    :backwards-premises
-        "~(Perm A)"
+    :backwards-premises "~(Perm A)"
     :variables A)
 
 (def-forwards-reason JO
     :conclusions "(Obl A & B)"
-    :forwards-premises
-        "(Obl A)"
-        "(Obl B)"
-    :variables A B)
+    :forwards-premises "(Obl A)" "(Obl B)"
+    :variables A B
+    :defeasible? t)
 
 (def-backwards-reason i-JO
     :conclusions "(Obl A & B)"
-    :backwards-premises
-        "(Obl A)"
-        "(Obl B)"
-    :variables A B)
+    :backwards-premises "(Obl A)" "(Obl B)"
+    :variables A B
+    :defeasible? t)
 
-(setq *forwards-logical-reasons*
-      (nconc *forwards-logical-reasons*
-	     (list FON1 FON2 OP PNF1 PNF2 JO)))
+(unless (member FON1 *forwards-logical-reasons*)
+  (setq *forwards-logical-reasons*
+	(nconc *forwards-logical-reasons*
+	       (list FON1 FON2 OP PNF1 PNF2 JO))))
 
-(setq *backwards-logical-reasons*
-      (nconc *backwards-logical-reasons*
-	     (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO)))
+(unless (member i-FON1 *backwards-logical-reasons*)
+  (setq *backwards-logical-reasons*
+	(nconc *backwards-logical-reasons*
+	       (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO))))
+
+;;; The support of Facultativeness
 
 (def-forwards-reason FP1
     :conclusions "(Perm A) & (Perm ~A)"
@@ -112,12 +104,14 @@
         "(Perm A) & (Perm ~A)"
     :variables A)
 
-(setq *forwards-logical-reasons*
-      (nconc *forwards-logical-reasons*
-	     (list FP1 FP2)))
+(unless (member FP1 *forwards-logical-reasons*)
+  (setq *forwards-logical-reasons*
+	(nconc *forwards-logical-reasons*
+	       (list FP1 FP2))))
 
-(setq *backwards-logical-reasons*
-      (nconc *backwards-logical-reasons* (list i-FP1 i-FP2)))
+(unless (member i-FP1 *backwards-logical-reasons*)
+  (setq *backwards-logical-reasons*
+	(nconc *backwards-logical-reasons* (list i-FP1 i-FP2))))
 
 ;;; Legal reasoning problems
 
@@ -166,3 +160,6 @@ Ultimate epistemic interests:
      (all A)((Perm (Does A)) <-> ~(Obl ~(Does A)))    interest = 1.0
 
 ")))
+
+(setq *comparison-log*
+      '(OSCAR_3.31 0.23 0.23 10 0.95 ((6 1 10 12) (5 1 8 10) (4 2 0 8) (3 1 3 3) (2 2 0 19) (1 1 3 4))))
