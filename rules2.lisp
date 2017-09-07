@@ -41,6 +41,3 @@
 	    contra-conditionalization
 	    ;; vacuous-condition
 	    ))
-
-;;; Rules of deontic operators for legal reasoning.
-
