@@ -1,5 +1,12 @@
+;;;; OSCAR_3.31 (the beginning part has been moved to base.lisp)
 
 (in-package "OSCAR")
+
+(eval-when (:load-toplevel :execute)
+  (export '(trace-on trace-off trace-from display-on display-off display-from
+	    proof-on proof-off logic-on logic-off reductio-on reductio-off
+	    log-on log-off IQ-on IQ-off graph-log-on graph-log-off
+	    graphics-pause-on graphics-pause-off)))
 
 ;======================================================
 ; -------------------------------------- CONCLUSIONS --------------------------------------
