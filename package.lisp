@@ -125,3 +125,19 @@
     (setf (logical-pathname-translations "OSCAR")
           `(("**;*.*.NEWEST" ,home)
 	    ("**;*.*" ,home)))))
+
+(defun load-oscar-files ()
+  ;; Basic rules and problems
+  (load #p"OSCAR:Rules_3-30.lisp")
+  (load #p"OSCAR:Combined-problems.lisp")
+  ;; Perception, Time and Causation
+  (load #p"OSCAR:Perception-Causes_3-31.lisp")
+  (load #p"OSCAR:PC-examples_3-31.lisp")
+  ;; Planning rules and problems
+  (load #p"OSCAR:Non-Linear-Planner44.lisp")
+  (load #p"OSCAR:Planning-Problems44.lisp")
+  (load #p"OSCAR:Prob-flat-tire44.lisp")
+  ;; Deontic rules and problems
+  (load #p"OSCAR:deontic-rules.lisp")
+  (load #p"OSCAR:deontic-problems.lisp")
+  )

@@ -25,11 +25,6 @@
     :forwards-premises "(Obl A)" "(Obl B)" :conclusions "(Obl A & B)"
     :variables A B :defeasible? t)
 
-(unless (member FON1 *forwards-logical-reasons*)
-  (setq *forwards-logical-reasons*
-	(nconc *forwards-logical-reasons*
-	       (list FON1 FON2 OP PNF1 PNF2 JO))))
-
 (def-backwards-reason i-FON1
     :backwards-premises "(Forb A)" :conclusions "(Obl ~A)" :variables A)
 
@@ -49,23 +44,12 @@
     :backwards-premises "(Obl A)" "(Obl B)" :conclusions "(Obl A & B)"
     :variables A B :defeasible? t)
 
-(unless (member i-FON1 *backwards-logical-reasons*)
-  (setq *backwards-logical-reasons*
-	(nconc *backwards-logical-reasons*
-	       (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO))))
-
 ;;; The support of Facultativeness
-
 (def-forwards-reason FP1
     :forwards-premises "(Fault A)" :conclusions "(Perm A) & (Perm ~A)" :variables A)
 
 (def-forwards-reason FP2
     :forwards-premises "(Perm A)" "(Perm ~A)" :conclusions "(Fault A)" :variables A)
-
-(unless (member FP1 *forwards-logical-reasons*)
-  (setq *forwards-logical-reasons*
-	(nconc *forwards-logical-reasons*
-	       (list FP1 FP2))))
 
 (def-backwards-reason i-FP1
     :backwards-premises "(Fault A)" :conclusions "(Perm A) & (Perm ~A)" :variables A)
@@ -73,6 +57,8 @@
 (def-backwards-reason i-FP2
     :backwards-premises "(Perm A)" "(Perm ~A)" :conclusions "(Fault A)" :variables A)
 
-(unless (member i-FP1 *backwards-logical-reasons*)
-  (setq *backwards-logical-reasons*
-	(nconc *backwards-logical-reasons* (list i-FP1 i-FP2))))
+(defvar *forwards-deontic-reasons*
+  (list FON1 FON2 OP PNF1 PNF2 JO FP1 FP2))
+
+(defvar *backwards-deontic-reasons*
+  (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO i-FP1 i-FP2))
