@@ -102,7 +102,7 @@
 (defvar *graph-log* nil)
 (defvar *graphics-pause* nil)
 
-;; by James Anderson (the author of cl-xml)
+;; Universal comment reader, learn from James Anderson (the author of cl-xml)
 (defun |universal-comment-reader| (stream char)
   (declare (ignore char))
   (loop (case (read-char stream nil nil)
@@ -111,3 +111,17 @@
   (values))
 
 (set-macro-character #\; '|universal-comment-reader|)
+
+;; Logical pathname translations, learn from CL-HTTP source code
+(eval-when (:load-toplevel :execute)
+  (let* ((defaults #+asdf (asdf:component-pathname (asdf:find-system :oscar))
+                   #-asdf *load-truename*)
+         (home (make-pathname :name :wild :type :wild
+                              :directory (append (pathname-directory defaults)
+                                                 '(:wild-inferiors))
+                              :host (pathname-host defaults)
+                              :defaults defaults
+			      :version :newest)))
+    (setf (logical-pathname-translations "OSCAR")
+          `(("**;*.*.NEWEST" ,home)
+	    ("**;*.*" ,home)))))
