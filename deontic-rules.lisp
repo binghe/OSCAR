@@ -57,8 +57,10 @@
 (def-backwards-reason i-FP2
     :backwards-premises "(Perm A)" "(Perm ~A)" :conclusions "(Fault A)" :variables A)
 
-(defvar *forwards-deontic-reasons*
-  (list FON1 FON2 OP PNF1 PNF2 JO FP1 FP2))
+(setq *forwards-logical-reasons*
+      (nconc *forwards-logical-reasons*
+	     (list FON1 FON2 OP PNF1 PNF2 JO FP1 FP2)))
 
-(defvar *backwards-deontic-reasons*
-  (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO i-FP1 i-FP2))
+(setq *backwards-deontic-reasons*
+      (nconc *backwards-deontic-reasons*
+	     (list i-FON1 i-FON2 i-OP i-PNF1 i-PNF2 i-JO i-FP1 i-FP2)))
