@@ -134,7 +134,7 @@
 
 #| This defines a function in the ordinary way, but also keeps a record of
 its arglist and definition on the property list of the function name.  When
-definitions are changed, a record of the changes is kept in *old-definitions*. |#
+definitions are changed, a record of the changes is kept in *old-definitions*.
 (defmacro defunction (fun arg &rest body)
   `(progn
      (when (and (get (quote ,fun) 'definition)
@@ -147,6 +147,7 @@ definitions are changed, a record of the changes is kept in *old-definitions*. |
      (setf (get (quote ,fun) 'arglist) (quote ,arg))
      (setf (get (quote ,fun) 'definition) (quote ,body))
      (defun ,fun ,arg ,@body)))
+|#
 
 #+lispworks
 (dspec:define-form-parser (defunction (:alias defun)))
@@ -156,7 +157,7 @@ its arglist and definition on the property list of the function name.  When
 definitions are changed, a record of the changes is kept in *old-definitions*.
 Definitions created by defunction are saved in the file "Definitions History"
 in the OSCAR Folder. The first time a function is defined in a session, the
-definition is not saved in "Definitions History".
+definition is not saved in "Definitions History". |#
 (defmacro defunction (fun arg &rest body)
   `(progn
      (defun ,fun ,arg ,@body)
@@ -168,8 +169,8 @@ definition is not saved in "Definitions History".
 		     (list def (multiple-value-list (get-decoded-time))))
 	       *old-definitions*)
 	 (with-open-file
-	     (stream (make-pathname :name "Definitions History" :type "lisp"
-				    :defaults oscar-pathname)
+	     (stream (make-pathname :name "definitions-history" :type "lisp"
+				    :defaults #p"OSCAR:")
 		     :direction :output :if-exists :append)
 	   (terpri stream) (princ "==============================================" stream)
 	   (terpri stream)
@@ -187,7 +188,6 @@ definition is not saved in "Definitions History".
      (setf (get (quote ,fun) 'arglist) (quote ,arg))
      (setf (get (quote ,fun) 'definition) (quote ,body))
      (quote ,fun)))
-|#
 
 #| This returns and displays the definition history of fun. |#
 (defun def-history (fun &optional do-not-print)
