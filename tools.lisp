@@ -187,7 +187,9 @@ definition is not saved in "Definitions History". |#
 	   )))
      (setf (get (quote ,fun) 'arglist) (quote ,arg))
      (setf (get (quote ,fun) 'definition) (quote ,body))
-     (setf (get (quote ,fun) 'source-file) *load-pathname*)
+     (setf (get (quote ,fun) 'source-file)
+	   (make-pathname :name (pathname-name *load-pathname*) :type "lisp"
+			  :defaults #p"OSCAR:"))
      (quote ,fun)))
 
 #| This returns and displays the definition history of fun. |#
