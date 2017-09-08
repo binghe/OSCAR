@@ -187,6 +187,7 @@ definition is not saved in "Definitions History". |#
 	   )))
      (setf (get (quote ,fun) 'arglist) (quote ,arg))
      (setf (get (quote ,fun) 'definition) (quote ,body))
+     (setf (get (quote ,fun) 'source-file) *load-pathname*)
      (quote ,fun)))
 
 #| This returns and displays the definition history of fun. |#
@@ -1349,6 +1350,9 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
    (cond ((zerop n) nil)
              (t (/ (coerce (round (coerce (* 100 (expt m (/ 1 n))) 'float)) 'float) 100))))
 
+;; it only works for symbols defined by defunction
+(defun get-source-files (x)
+  (get x 'source-file))
 
 ;List all callers of f in current package:
 (defun who-calls (f)
