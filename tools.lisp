@@ -171,7 +171,7 @@ definition is not saved in "Definitions History". |#
 	 (with-open-file
 	     (stream (make-pathname :name "definitions-history" :type "lisp"
 				    :defaults #p"OSCAR:")
-		     :direction :output :if-exists :append)
+		     :direction :output :if-exists :append :if-does-not-exist :create)
 	   (terpri stream) (princ "==============================================" stream)
 	   (terpri stream)
 	   (multiple-value-bind
@@ -1353,6 +1353,7 @@ patterns), and X is a subset of data.  This asssumes that vars do not occur in d
              (t (/ (coerce (round (coerce (* 100 (expt m (/ 1 n))) 'float)) 'float) 100))))
 
 ;; it only works for symbols defined by defunction
+#-MCL
 (defun get-source-files (x)
   (get x 'source-file))
 
