@@ -103,6 +103,7 @@
 (defvar *graphics-pause* nil)
 
 ;; Universal comment reader, learn from James Anderson (the author of cl-xml)
+;; In CMUCL the solution is: (compile-file "foo.lisp" :external-format '(:utf8 :cr))
 (defun |universal-comment-reader| (stream char)
   (declare (ignore char))
   (loop (case (read-char stream nil nil)
