@@ -12,7 +12,7 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 
 ## Common Lisp platforms confirmed working
 - Macintosh Common Lisp (RMCL) 5.2, 6.0
-- LispWorks 6.1, 7.0
+- LispWorks 6.1, 7.0, 7.1 (*prior version doesn't work!*)
 - CMU Common Lisp 21b
 - SBCL 1.3.19
 - Clozure CL 1.11
@@ -34,7 +34,7 @@ NOTE: if you're also using MCL, before calling ASDF please change the value of `
  1. Run `(load #p"OSCAR:rules.lisp")`,
  2. Run `(load #p"OSCAR:combined-problems.lisp")`,
 - Change current Lisp package to OSCAR
-- Run `(test n)` (`n` is the problem number) or just `(test)`
+- Run `(oscar:test n)` (`n` is the problem number, 1-104) or just `(oscar:test)`
 
 ## How to run simulations (untested)
 - Run `(load #p"OSCAR:perception-causes.lisp")`
