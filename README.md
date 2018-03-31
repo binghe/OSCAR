@@ -25,6 +25,14 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 
 NOTE: if you're also using MCL, before calling ASDF please change the value of `oscar-pathname` at the end of `package.lisp` to your absolute path of OSCAR home pathname, in Mac OS 9 classic format.
 
+### Why isn't OSCAR included in Quicklisp?
+
+```
+"This license is too restrictive for inclusion in Quicklisp, sorry." -- Zach Beane, August 28, 2017
+```
+
+see <https://github.com/quicklisp/quicklisp-projects/issues/1378#issuecomment-325326234> for details.
+
 ## To run OSCAR's graphics interface on MCL
 - Change current Lisp package to OSCAR: `(in-package :oscar)`
 - Run `(initialize-graphics)`
