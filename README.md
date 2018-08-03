@@ -12,7 +12,7 @@ Official website: http://johnpollock.us/ftp/OSCAR-web-page/oscar.html
 
 ## Common Lisp platforms confirmed working
 - Macintosh Common Lisp (RMCL) 5.2, 6.0
-- LispWorks 6.1, 7.0, 7.1 (*prior version doesn't work!*)
+- LispWorks 6.1, 7.0, 7.1 (*version <= 6.0 doesn't work!*)
 - CMU Common Lisp 21b
 - SBCL 1.3.19
 - Clozure CL 1.11
@@ -33,17 +33,17 @@ NOTE: if you're also using MCL, before calling ASDF please change the value of `
 
 see <https://github.com/quicklisp/quicklisp-projects/issues/1378#issuecomment-325326234> for details.
 
-## To run OSCAR's graphics interface on MCL
+## To run OSCAR's graphics interface in MCL
 - Change current Lisp package to OSCAR: `(in-package :oscar)`
 - Run `(initialize-graphics)`
 
 ## How to run tests
 - Manually load 2 more Lisp files (in same order as below) without compilation:
- 1. Run `(load #p"OSCAR:rules.lisp")`,
- 2. Run `(load #p"OSCAR:combined-problems.lisp")`,
+ 1. Execute `(load #p"OSCAR:rules.lisp")`,
+ 2. Execute `(load #p"OSCAR:combined-problems.lisp")`,
 - Change current Lisp package to OSCAR
-- Run `(oscar:test n)` (`n` is the problem number, 1-104) or just `(oscar:test)`
+- Execute `(oscar:test n)` (`n` is the problem number, 1-104) or just `(oscar:test)`
 
 ## How to run simulations (untested)
-- Run `(load #p"OSCAR:perception-causes.lisp")`
-- Run `(load #p"OSCAR:pc-examples.lisp")`
+- Execute `(load #p"OSCAR:perception-causes.lisp")`
+- Execute `(load #p"OSCAR:pc-examples.lisp")`
